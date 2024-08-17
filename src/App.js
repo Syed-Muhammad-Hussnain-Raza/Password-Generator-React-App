@@ -1,23 +1,11 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import PasswordGenerator from "./components/PasswordGenerator";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="App h-screen bg-gradient-to-r from-red-200 via-pink-200">
+      <h1 className="text-3xl font-bold pt-16 text-blue-900">Password Generator</h1>
+      <PasswordGenerator></PasswordGenerator>
     </div>
   );
 }
