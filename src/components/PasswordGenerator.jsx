@@ -15,37 +15,60 @@ const PasswordGenerator = () => {
     const specialCharacters = "!@#$%^&*()-_{}'?/>.<,;`~|[]₱$﷼";
 
     let validChars = lowerCaseChars;
+    let guaranteedChars = [];
 
     if (includeUpperCase) {
       validChars += upperCaseChars;
+      guaranteedChars.push(
+        upperCaseChars[Math.floor(Math.random() * upperCaseChars.length)]
+      );
     }
 
     if (includeNumbers) {
       validChars += numbers;
+      guaranteedChars.push(numbers[Math.floor(Math.random() * numbers.length)]);
     }
 
     if (includeSpecialCharacter) {
       validChars += specialCharacters;
+      guaranteedChars.push(
+        specialCharacters[Math.floor(Math.random() * specialCharacters.length)]
+      );
     }
 
-    let generatePassword = "";
+    let newPassword = guaranteedChars.join("");
 
-    for (let i = 0; i < passwordLength; i++) {
+    for (let i = guaranteedChars.length; i < passwordLength; i++) {
       const randomIndex = Math.floor(Math.random() * validChars.length);
-      generatePassword += validChars.charAt(randomIndex);
+      newPassword += validChars.charAt(randomIndex);
     }
-    setPassword(generatePassword);
+
+    setPassword(
+      newPassword
+        .split("")
+        .sort(() => Math.random() - 0.5)
+        .join("")
+    );
+  };
+
+  const handlePasswordLengthChange = (e) => {
+    const length = Math.max(4, Math.min(64, parseInt(e.target.value, 10) || 8));
+    setPasswordLength(length);
+  };
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(password);
   };
 
   return (
     <div className="pt-8 text-white font-bold">
       <div className="flex flex-col items-center">
-        <div className="bg-purple-800 w-[350px] shadow-2xl hover: shadow-blue-900 rounded-md p-3">
+        <div className="bg-purple-800 w-full max-w-[370px] shadow-2xl hover:shadow-blue-900 rounded-md p-3">
           <div className="mb-4 flex items-center justify-between">
             <label htmlFor="passwordLength">Password Length: </label>
             <input
               value={passwordLength}
-              onChange={(e) => setPasswordLength(e.target.value)}
+              onChange={handlePasswordLengthChange}
               className="w-12 bg-purple-700 pl-2"
               type="number"
               name="passwordLength"
@@ -92,8 +115,23 @@ const PasswordGenerator = () => {
           >
             Generate Password
           </button>
+          {password && (
+            <div>
+              <p className="font-normal text-white mt-2">
+                Password Generated:{" "}
+                <span
+                  className="font-bold cursor-pointer"
+                  onClick={copyToClipboard}
+                >
+                  {password}
+                </span>
+              </p>
+              <p className="text-sm text-green-400">
+                {/* Copy confirmation message */}
+              </p>
+            </div>
+          )}
         </div>
-        <h2>{password}</h2>
       </div>
     </div>
   );
