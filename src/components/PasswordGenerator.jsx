@@ -8,6 +8,11 @@ const PasswordGenerator = () => {
   const [includeNumbers, setIncludeNumbers] = useState(true);
   const [includeSpecialCharacter, setIncludeSpecialCharacter] = useState(true);
 
+  const handlePasswordLengthChange = (e) => {
+    const length = Math.max(4, Math.min(64, parseInt(e.target.value, 10) || 8));
+    setPasswordLength(length);
+  };
+
   const generatePassword = () => {
     const lowerCaseChars = "abcdefghijklmnopqrstuvwxyz";
     const upperCaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -49,11 +54,6 @@ const PasswordGenerator = () => {
         .sort(() => Math.random() - 0.5)
         .join("")
     );
-  };
-
-  const handlePasswordLengthChange = (e) => {
-    const length = Math.max(4, Math.min(64, parseInt(e.target.value, 10) || 8));
-    setPasswordLength(length);
   };
 
   const copyToClipboard = () => {
@@ -116,20 +116,15 @@ const PasswordGenerator = () => {
             Generate Password
           </button>
           {password && (
-            <div>
-              <p className="font-normal text-white mt-2">
-                Password Generated:{" "}
-                <span
-                  className="font-bold cursor-pointer"
-                  onClick={copyToClipboard}
-                >
-                  {password}
-                </span>
-              </p>
-              <p className="text-sm text-green-400">
-                {/* Copy confirmation message */}
-              </p>
-            </div>
+            <p className="font-normal text-white mt-2">
+              Password Generated:{" "}
+              <span
+                className="font-bold cursor-pointer"
+                onClick={copyToClipboard}
+              >
+                {password}
+              </span>
+            </p>
           )}
         </div>
       </div>
