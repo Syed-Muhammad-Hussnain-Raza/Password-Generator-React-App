@@ -7,10 +7,19 @@ const PasswordGenerator = () => {
   const [includeUpperCase, setIncludeUpperCase] = useState(true);
   const [includeNumbers, setIncludeNumbers] = useState(true);
   const [includeSpecialCharacter, setIncludeSpecialCharacter] = useState(true);
+  const [passwordStrength, setPasswordStrength] = useState("");
+  const [copySuccess, setCopySuccess] = useState("");
 
   const handlePasswordLengthChange = (e) => {
     const length = Math.max(4, Math.min(64, parseInt(e.target.value, 10) || 8));
     setPasswordLength(length);
+  };
+
+  const determineStrength = (length, upper, numbers, special) => {
+    let strength = "Weak";
+    if (length >= 12 && upper && numbers && special) strength = "Strong";
+    else if (length >= 8 && (upper || numbers || special)) strength = "Moderate";
+    return strength;
   };
 
   const generatePassword = () => {
@@ -37,7 +46,9 @@ const PasswordGenerator = () => {
     if (includeSpecialCharacter) {
       validChars += specialCharacters;
       guaranteedChars.push(
-        specialCharacters[Math.floor(Math.random() * specialCharacters.length)]
+        specialCharacters[
+          Math.floor(Math.random() * specialCharacters.length)
+        ]
       );
     }
 
@@ -48,16 +59,26 @@ const PasswordGenerator = () => {
       newPassword += validChars.charAt(randomIndex);
     }
 
-    setPassword(
-      newPassword
-        .split("")
-        .sort(() => Math.random() - 0.5)
-        .join("")
+    newPassword = newPassword
+      .split("")
+      .sort(() => Math.random() - 0.5)
+      .join("");
+
+    setPassword(newPassword);
+    setPasswordStrength(
+      determineStrength(
+        passwordLength,
+        includeUpperCase,
+        includeNumbers,
+        includeSpecialCharacter
+      )
     );
+    setCopySuccess("");
   };
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(password);
+    setCopySuccess("Copied to clipboard!");
   };
 
   return (
@@ -116,15 +137,21 @@ const PasswordGenerator = () => {
             Generate Password
           </button>
           {password && (
-            <p className="font-normal text-white mt-2">
-              Password Generated:{" "}
-              <span
-                className="font-bold cursor-pointer"
-                onClick={copyToClipboard}
-              >
-                {password}
-              </span>
-            </p>
+            <div className="mt-4">
+              <p className="font-normal text-white">
+                Password Generated:{" "}
+                <span
+                  className="font-bold cursor-pointer"
+                  onClick={copyToClipboard}
+                >
+                  {password}
+                </span>
+              </p>
+              <p className="mt-2">
+                Strength: <span className="text-green-400">{passwordStrength}</span>
+              </p>
+              {copySuccess && <p className="mt-1 text-green-300">{copySuccess}</p>}
+            </div>
           )}
         </div>
       </div>
