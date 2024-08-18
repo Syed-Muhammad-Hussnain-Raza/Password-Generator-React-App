@@ -11,14 +11,27 @@ const PasswordGenerator = () => {
   const [copySuccess, setCopySuccess] = useState("");
 
   const handlePasswordLengthChange = (e) => {
-    const length = Math.max(4, Math.min(64, parseInt(e.target.value, 10) || 8));
-    setPasswordLength(length);
+    setPasswordLength(e.target.value);
+  };
+
+  const handleFocus = () => {
+    setPasswordLength(""); // Clear the input field on focus
+  };
+
+  const handleBlur = () => {
+    if (passwordLength === "" || passwordLength < 4 || passwordLength > 64) {
+      if (passwordLength < 4 || passwordLength > 64) {
+        alert("Password length must be between 4 and 64.");
+      }
+      setPasswordLength(8);
+    }
   };
 
   const determineStrength = (length, upper, numbers, special) => {
     let strength = "Weak";
     if (length >= 12 && upper && numbers && special) strength = "Strong";
-    else if (length >= 8 && (upper || numbers || special)) strength = "Moderate";
+    else if (length >= 8 && (upper || numbers || special))
+      strength = "Moderate";
     return strength;
   };
 
@@ -46,9 +59,7 @@ const PasswordGenerator = () => {
     if (includeSpecialCharacter) {
       validChars += specialCharacters;
       guaranteedChars.push(
-        specialCharacters[
-          Math.floor(Math.random() * specialCharacters.length)
-        ]
+        specialCharacters[Math.floor(Math.random() * specialCharacters.length)]
       );
     }
 
@@ -89,6 +100,8 @@ const PasswordGenerator = () => {
             <label htmlFor="passwordLength">Password Length: </label>
             <input
               value={passwordLength}
+              onFocus={handleFocus}
+              onBlur={handleBlur}
               onChange={handlePasswordLengthChange}
               className="w-12 bg-purple-700 pl-2"
               type="number"
@@ -148,9 +161,12 @@ const PasswordGenerator = () => {
                 </span>
               </p>
               <p className="mt-2">
-                Strength: <span className="text-green-400">{passwordStrength}</span>
+                Strength:{" "}
+                <span className="text-green-400">{passwordStrength}</span>
               </p>
-              {copySuccess && <p className="mt-1 text-green-300">{copySuccess}</p>}
+              {copySuccess && (
+                <p className="mt-1 text-green-300">{copySuccess}</p>
+              )}
             </div>
           )}
         </div>
