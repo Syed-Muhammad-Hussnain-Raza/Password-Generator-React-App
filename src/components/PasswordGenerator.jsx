@@ -39,7 +39,7 @@ const PasswordGenerator = () => {
     const lowerCaseChars = "abcdefghijklmnopqrstuvwxyz";
     const upperCaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     const numbers = "1234567890";
-    const specialCharacters = "!@#$%^&*()-_{}'?/>.<,;`~|[]₱$﷼";
+    const specialCharacters = "!@#%^&*()-_}'?{/>.<,]`~|[$";
 
     let validChars = lowerCaseChars;
     let guaranteedChars = [];
