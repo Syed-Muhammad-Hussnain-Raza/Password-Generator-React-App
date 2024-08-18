@@ -29,7 +29,7 @@ const PasswordGenerator = () => {
 
   const determineStrength = (length, upper, numbers, special) => {
     let strength = "Weak";
-    if (length >= 12 && upper && numbers && special) strength = "Strong";
+    if (length >= 8 && upper && numbers && special) strength = "Strong";
     else if (length >= 8 && (upper || numbers || special))
       strength = "Moderate";
     return strength;
@@ -90,6 +90,7 @@ const PasswordGenerator = () => {
   const copyToClipboard = () => {
     navigator.clipboard.writeText(password);
     setCopySuccess("Copied to clipboard!");
+    alert("Password copied to clipboard successfully!");
   };
 
   return (
