@@ -26,7 +26,10 @@ To run this project locally, follow these steps:
    ```bash
    npm install
    ```
-4. Start the development server:
+
+## Usage
+
+1. Start the development server:
 
    ```bash
    npm start
@@ -34,11 +37,10 @@ To run this project locally, follow these steps:
 
    Runs the app in the development mode. Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-   The page will reload when you make changes. You may also see any lint errors in the console.
+   <h2>OR</h2>
 
-## Usage
+` You can also use this app directly via this link: [Password Generator App](https://syed-muhammad-hussnain-raza.github.io/Password-Generator-React-App/)
 
-1. Open the application in your browser. You can also use this app directly via this link: [Password Generator App](https://syed-muhammad-hussnain-raza.github.io/Password-Generator-React-App/)
 2. Customize the password settings by adjusting the length and toggling the inclusion of uppercase letters, numbers, and special characters.
 3. Click on "Generate Password" to create a new password.
 4. Copy the generated password to your clipboard by clicking on the password text.
@@ -59,7 +61,7 @@ To run this project locally, follow these steps:
 
 The app can be deployed using GitHub Pages. The predeploy script builds the app, and the deploy script pushes the build to the gh-pages branch.
 
-``` bash
+```bash
 "scripts": {
   "predeploy": "npm run build",
   "deploy": "gh-pages -d build",
