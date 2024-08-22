@@ -39,7 +39,7 @@ To run this project locally, follow these steps:
 
    <h2>OR</h2>
 
-` You can also use this app directly via this link: [Password Generator App](https://syed-muhammad-hussnain-raza.github.io/Password-Generator-React-App/)
+   You can also use this app directly via this link: [Password Generator App](https://syed-muhammad-hussnain-raza.github.io/Password-Generator-React-App/)
 
 2. Customize the password settings by adjusting the length and toggling the inclusion of uppercase letters, numbers, and special characters.
 3. Click on "Generate Password" to create a new password.
